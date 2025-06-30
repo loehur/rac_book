@@ -47,10 +47,10 @@ class Upload extends Controller
                if (strlen($hp) > 0) {
                   $nama = $line[1];
                   $where = "hp = '" . $hp . "'";
-                  $data_main = $this->model('M_DB_1')->count_where('rac_data', $where);
+                  $data_main = $this->db(0)->count_where('rac_data', $where);
                   if ($data_main < 1) {
                      $vals =  "'" . $hp . "','" . $nama . "'";
-                     $query = $this->model('M_DB_1')->insert('rac_data', $vals);
+                     $query = $this->db(0)->insert('rac_data', $vals);
                      if ($query['errno'] == 0) {
                         $succCount++;
                      } else {
@@ -59,9 +59,9 @@ class Upload extends Controller
                      }
                   } else {
                      $where2 = "hp = '" . $hp . "' AND nama = '" . $nama . "'";
-                     $data_main2 = $this->model('M_DB_1')->count_where('rac_data', $where2);
+                     $data_main2 = $this->db(0)->count_where('rac_data', $where2);
                      if ($data_main2 < 1) {
-                        $query2 = $this->model('M_DB_1')->update("rac_data", "nama = '" . $nama . "'", $where);
+                        $query2 = $this->db(0)->update("rac_data", "nama = '" . $nama . "'", $where);
                         if ($query2 == 1) {
                            $updateCount++;
                            $list_updated = $list_updated . "[" . $hp . "] ";
