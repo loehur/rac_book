@@ -7,4 +7,11 @@ $menu[1] = [
         'icon' => 'fas fa-cloud-upload-alt',
         'txt' => 'Upload'
     ],
+    [
+        'p' => 100,
+        'c' => 'User',
+        'title' => 'User',
+        'icon' => 'fas fa-user-friends',
+        'txt' => 'User',
+    ],
 ];
