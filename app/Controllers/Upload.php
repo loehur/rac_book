@@ -29,73 +29,47 @@ class Upload extends Controller
 
    public function up_data()
    {
-      $query = "";
-      $row = 0;
-      $per_query = 0;
-      $msg = ['No Data'];
-
+      $upStatus = "Error Function";
+      $succCount = 0;
+      $failedCount = 0;
+      $skipCount = 0;
+      $updateCount = 0;
+      $list_updated = "";
+      $list_skipped = "";
+      $list_failed = "";
+      $msg = $upStatus . " - [" . $succCount . "] OK, [" . $succCount . "] Failed.";
       if ($_FILES["file"]["size"] > 0) {
          if (is_uploaded_file($_FILES['file']['tmp_name'])) {
             $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
             fgetcsv($csvFile);
             while (($line = fgetcsv($csvFile)) !== FALSE) {
-               if (!isset($line[0]) && isset($line[1])) {
-                  $msg = [
-                     'status' => 'error',
-                     'message' => 'fields error'
-                  ];
-                  break;
-               }
-
                $hp = $line[0];
-               $nama = $line[1];
-               $update = "nama = '" . $nama . "'";
+               if (strlen($hp) > 0) {
+                  $nama = $line[1];
+                  $update = "nama = '" . $nama . "'";
+                  $vals =  "'" . $hp . "','" . $nama . "'";
 
-               $row += 1;
-               $per_query += 1;
-               if ($per_query == 5000) {
-                  $this->db(0)->query($query);
-                  $query = "";
-                  $per_query = 0;
-
-                  $msg = [
-                     "status" => "success",
-                     "last_data" => [
-                        "hp" => $hp,
-                        "nama" => $nama
-                     ],
-                     "total_row" => $row
-                  ];
-               } else {
-                  $query .= "INSERT INTO rac_data VALUES('$hp','$nama') ON DUPLICATE KEY UPDATE $update;";
+                  $query = $this->db(0)->insert('rac_data', $vals, $update);
+                  if ($query['errno'] == 0) {
+                     $succCount++;
+                  } else {
+                     $failedCount++;
+                     $list_failed = $list_failed . "[" . $hp . "] " . $query['error'];
+                  }
                }
-            }
-
-            if ($per_query != 5000) {
-               $this->db(0)->query($query);
-               $msg = [
-                  "status" => "success",
-                  "last_data" => [
-                     "hp" => $hp,
-                     "nama" => $nama
-                  ],
-                  "total_row" => $row
-               ];
             }
             fclose($csvFile);
+            $upStatus = 'Import Complete!<hr>';
          } else {
-            $msg = [
-               'status' => 'error',
-               'message' => 'fields error'
-            ];
+            $upStatus = 'Error Data Row!';
          }
       } else {
-         $msg = [
-            'status' => 'error',
-            'message' => 'invalid file!'
-         ];
+         $upStatus = 'Invalid File!';
       }
-
-      echo json_encode($msg, JSON_PRETTY_PRINT);
+      $msg = $upStatus . "[" . $succCount . "] Success,<hr> 
+      [" . $updateCount . "] Updated,<br>" . $list_updated . "<hr>
+      [" . $skipCount . "] Skipped,<br>" . $list_skipped . "<hr>
+      [" . $failedCount . "] Failed.<br>" . $list_failed;
+      echo $msg;
    }
 }
