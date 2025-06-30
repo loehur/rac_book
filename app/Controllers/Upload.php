@@ -32,10 +32,6 @@ class Upload extends Controller
       $upStatus = "Error Function";
       $succCount = 0;
       $failedCount = 0;
-      $skipCount = 0;
-      $updateCount = 0;
-      $list_updated = "";
-      $list_skipped = "";
       $list_failed = "";
       $msg = $upStatus . " - [" . $succCount . "] OK, [" . $succCount . "] Failed.";
       if ($_FILES["file"]["size"] > 0) {
@@ -67,8 +63,6 @@ class Upload extends Controller
          $upStatus = 'Invalid File!';
       }
       $msg = $upStatus . "[" . $succCount . "] Success,<hr> 
-      [" . $updateCount . "] Updated,<br>" . $list_updated . "<hr>
-      [" . $skipCount . "] Skipped,<br>" . $list_skipped . "<hr>
       [" . $failedCount . "] Failed.<br>" . $list_failed;
       echo $msg;
    }
