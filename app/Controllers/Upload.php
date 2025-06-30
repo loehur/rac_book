@@ -53,7 +53,7 @@ class Upload extends Controller
 
                $row += 1;
                $per_query += 1;
-               if ($per_query == 10000) {
+               if ($per_query == 5000) {
                   $this->db(0)->query($query);
                   $query = "";
                   $per_query = 0;
@@ -71,7 +71,7 @@ class Upload extends Controller
                }
             }
 
-            if ($per_query != 10000) {
+            if ($per_query != 5000) {
                $this->db(0)->query($query);
                $msg = [
                   "status" => "success",
