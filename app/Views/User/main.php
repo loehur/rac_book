@@ -104,7 +104,6 @@
   </div>
 </div>
 
-<script src="<?= $this->ASSETS_URL ?>js/popper.min.js"></script>
 
 <script>
   $("form").on("submit", function(e) {
