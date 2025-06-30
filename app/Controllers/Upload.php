@@ -66,8 +66,6 @@ class Upload extends Controller
       $sql = "LOAD DATA LOCAL INFILE '" . $p['path'] . "' 
       IGNORE INTO TABLE rac_data 
       FIELDS TERMINATED BY ',' 
-      ENCLOSED BY '\"'
-      LINES TERMINATED BY '\\n'
       IGNORE 1 ROWS";
       $load = $this->db(0)->query($sql);
       if ($load['errno'] == 0) {
