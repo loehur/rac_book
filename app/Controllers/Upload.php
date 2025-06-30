@@ -20,11 +20,10 @@ class Upload extends Controller
       $this->view(__CLASS__ . "/main", $data);
    }
 
-   public function cek($ref = 0)
+   public function cek()
    {
-      $viewData = __CLASS__ . '/data';
-      $data = [];
-      $this->view($viewData, $data);
+      $count = $this->db(0)->count('rac_data');
+      echo $count . " Rows";
    }
 
    public function up_data()
