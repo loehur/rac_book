@@ -66,7 +66,7 @@ class Upload extends Controller
       $path = $p['path'];
 
       $sql = "LOAD DATA LOCAL INFILE '$path'
-      CHARACTER SET latin1
+      character set utf8
       INTO TABLE rac_data
       FIELDS TERMINATED BY ','
       LINES TERMINATED BY '\n'
