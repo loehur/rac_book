@@ -67,8 +67,10 @@ class Upload extends Controller
 
       $sql = "LOAD DATA LOCAL INFILE '$path'
 		INTO TABLE rac_data
-		FIELDS TERMINATED BY ','
-		IGNORE 1 LINES";
+	   FIELDS TERMINATED BY ';'
+	   OPTIONALLY ENCLOSED BY '" . '"' . "'
+	   LINES TERMINATED BY '\n'
+	   IGNORE 1 LINES";
 
       $load = $this->db(0)->query($sql);
       if ($load['errno'] == 0) {
