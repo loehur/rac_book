@@ -8,7 +8,6 @@
   </form>
 
   <div id="info"></div>
-  <div id="info2"></div>
 </div>
 
 <script>
@@ -28,22 +27,6 @@
       },
       success: function(res) {
         $("#info").html('<div class="alert alert-light" role="alert">' + res + '</div>');
-
-        $(".import").click(function() {
-          $.ajax({
-            url: '<?= URL::BASE_URL ?>Upload/import',
-            data: {
-              path: $('span#target').html()
-            },
-            type: "POST",
-            beforeSend: function() {
-              $("div#info2").load('<?= URL::BASE_URL ?>Load/spinner/2');
-            },
-            success: function(res) {
-              $("#info2").html('<div class="alert alert-light" role="alert">' + res + '</div>');
-            },
-          });
-        })
       },
     });
   });
