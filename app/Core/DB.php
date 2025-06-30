@@ -198,6 +198,19 @@ class DB extends DBC
         }
     }
 
+    public function insert_ignore($table, $values)
+    {
+
+        $query = "INSERT IGNORE INTO $table VALUES($values)";
+
+        try {
+            $this->mysqli->query($query);
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
+        } catch (\Throwable $th) {
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
+        }
+    }
+
     public function insertCols($table, $columns, $values, $update = "")
     {
 
@@ -274,7 +287,12 @@ class DB extends DBC
 
     public function query($textQuery)
     {
-        return $this->mysqli->multi_query($textQuery);
+        try {
+            $this->mysqli->query($textQuery);
+            return array('query' => $textQuery, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
+        } catch (\Throwable $th) {
+            return array('query' => $textQuery, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
+        }
     }
 
     public function innerJoin1($table, $tb_join, $join_where)

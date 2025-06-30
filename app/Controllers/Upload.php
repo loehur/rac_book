@@ -29,41 +29,51 @@ class Upload extends Controller
 
    public function up_data()
    {
-      $upStatus = "Error Function";
-      $succCount = 0;
-      $failedCount = 0;
-      $list_failed = "";
-      $msg = $upStatus . " - [" . $succCount . "] OK, [" . $succCount . "] Failed.";
-      if ($_FILES["file"]["size"] > 0) {
-         if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-            $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
-            fgetcsv($csvFile);
-            while (($line = fgetcsv($csvFile)) !== FALSE) {
-               $hp = $line[0];
-               if (strlen($hp) > 0) {
-                  $nama = $line[1];
-                  $update = "nama = '" . $nama . "'";
-                  $vals =  "'" . $hp . "','" . $nama . "'";
-
-                  $query = $this->db(0)->insert('rac_data', $vals, $update);
-                  if ($query['errno'] == 0) {
-                     $succCount++;
-                  } else {
-                     $failedCount++;
-                     $list_failed = $list_failed . "[" . $hp . "] " . $query['error'];
-                  }
-               }
-            }
-            fclose($csvFile);
-            $upStatus = 'Import Complete!<hr>';
-         } else {
-            $upStatus = 'Error Data Row!';
-         }
-      } else {
-         $upStatus = 'Invalid File!';
+      $target_dir = "files/csv/";
+      if (!file_exists($target_dir)) {
+         mkdir($target_dir, 0777, TRUE);
       }
-      $msg = $upStatus . "[" . $succCount . "] Success,<hr> 
-      [" . $failedCount . "] Failed.<br>" . $list_failed;
-      echo $msg;
+
+      $target_file = $target_dir . basename($_FILES["file"]["name"]);
+      $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+
+      if ($_FILES["file"]["size"] > 10000000) {
+         echo "Max 10mb";
+         exit();
+      }
+
+      if ($imageFileType != "csv") {
+         echo "Hanya boleh CSV";
+         exit();
+      }
+
+      if (file_exists($target_file)) {
+         echo "Uploaded. <span id='target'>" . $target_file . "</span>&nbsp; <span class='btn btn-success import'>Import</span>";
+         exit();
+      } else {
+         if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+            echo "Uploaded. <span id='target'>" . $target_file . "</span>&nbsp; <span class='btn btn-success import'>Import</span>";
+         } else {
+            echo "Maaf terjadi kesalahan teknis";
+         }
+      }
+   }
+
+   function import()
+   {
+      $p = $_POST;
+      $sql = "LOAD DATA LOCAL INFILE '" . $p['path'] . "' 
+      IGNORE INTO TABLE rac_data 
+      FIELDS TERMINATED BY ',' 
+      ENCLOSED BY '\"'
+      LINES TERMINATED BY '\\n'
+      IGNORE 1 ROWS";
+      $load = $this->db(0)->query($sql);
+      if ($load['errno'] == 0) {
+         echo "IMPORT SUCCESS";
+      } else {
+         echo $load['error'];
+      }
    }
 }

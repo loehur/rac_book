@@ -78,6 +78,10 @@ class M_DB
     {
         return $this->db->insert($table, $values, $update);
     }
+    public function insert_ignore($table, $values)
+    {
+        return $this->db->insert($table, $values);
+    }
     public function insertCols($table, $columns, $values = "", $update = "")
     {
         return $this->db->insertCols($table, $columns, $values, $update);
