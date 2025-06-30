@@ -63,10 +63,14 @@ class Upload extends Controller
    function import()
    {
       $p = $_POST;
-      $sql = "LOAD DATA LOCAL INFILE '" . $p['path'] . "' 
-      IGNORE INTO TABLE rac_data 
-      FIELDS TERMINATED BY ',' 
-      IGNORE 1 ROWS";
+      $path = $p['path'];
+
+      $sql = "LOAD DATA LOCAL INFILE '$path'
+		INTO TABLE rac_data
+		FIELDS TERMINATED BY ','
+		ESCAPED BY '\'
+		IGNORE 1 LINES";
+
       $load = $this->db(0)->query($sql);
       if ($load['errno'] == 0) {
          echo "IMPORT SUCCESS";
