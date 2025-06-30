@@ -69,7 +69,7 @@ class Upload extends Controller
 		INTO TABLE rac_data
 		FIELDS TERMINATED BY ','
 		ESCAPED BY '\'
-		OPTIONALLY ENCLOSED BY ''
+		OPTIONALLY ENCLOSED BY '
 		LINES TERMINATED BY '\n'
 		IGNORE 1 LINES";
 
