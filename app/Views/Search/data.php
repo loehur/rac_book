@@ -1,6 +1,6 @@
 <?php
 $d = $data;
-$hp = $this->data('validasi')->valid_wa_direct($d['hp']);
+$hp = $this->data('Validasi')->valid_wa_direct($d['hp']);
 ?>
 <div class="p-2 rounded border">
     <div class="d-flex justify-content-between">
