@@ -7,7 +7,7 @@ class Login extends Controller
       $data = [];
       if (isset($_SESSION['rac_login'])) {
          if ($_SESSION['rac_login'] == TRUE) {
-            header('Location: ' . URL::BASE_URL . "Penjualan");
+            header('Location: ' . URL::BASE_URL . "Search");
          } else {
             $this->view('login', $data);
          }
