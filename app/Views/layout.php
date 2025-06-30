@@ -90,7 +90,7 @@ if ($log_mode == 1) {
         <nav class="main-header navbar navbar-expand navbar-light sticky-top pb-0 pt-2">
             <div class="row w-100 mx-0 px-0 pb-1">
                 <div class="col ps-0 pe-1 text-nowrap">
-                    <a class="nav-link p-0" id="menu_utama" data-widget="pushmenu" href="#" role="button"> <span class="btn"><i class="fas fa-bars"></i></span></a>
+                    <a class="nav-link p-0" id="menu_utama" data-widget="pushmenu" href="#" role="button"> <span class="btn"><i class="fas fa-bars"></i> Menu</span></a>
                 </div>
                 <div class="col-auto ps-0">
                     <a class="refresh" href="#">
