@@ -159,7 +159,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="pin" class="form-control" placeholder="PIN" required>
+                            <input type="password" name="pin" class="form-control" placeholder="OTP" required>
                             <div class="input-group-append">
                                 <div class="input-group-text" style="width:40px">
                                     <div class="w-100 text-center">
