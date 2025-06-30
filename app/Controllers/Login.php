@@ -243,7 +243,7 @@ class Login extends Controller
    {
       setcookie("RACSESSID", 0, time() + 1, "/");
       session_destroy();
-      header('Location: ' . URL::BASE_URL . "Penjualan/i");
+      header('Location: ' . URL::BASE_URL . "Login");
    }
 
    public function captcha()
