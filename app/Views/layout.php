@@ -60,7 +60,7 @@ $hidePublic = "";
 $classAdmin = "btn-danger";
 $classPublic = "btn-success";
 
-if ($_SESSION['resto_user']['id_privilege'] == 100) {
+if ($_SESSION['rac_user']['id_privilege'] == 100) {
     $hideAdmin = "d-none";
 } else {
     $hideAdmin = "";
