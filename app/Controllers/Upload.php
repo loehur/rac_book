@@ -29,7 +29,7 @@ class Upload extends Controller
 
    public function up_data()
    {
-      $target_dir = __DIR__ . "/../../../../Files/csv/";
+      $target_dir = __DIR__ . "/../../../../files/csv/";
       if (!file_exists($target_dir)) {
          mkdir($target_dir, 0777, TRUE);
       }
