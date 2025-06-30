@@ -107,92 +107,73 @@
 <script src="<?= $this->ASSETS_URL ?>js/popper.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    $("form").on("submit", function(e) {
-      e.preventDefault();
-      $.ajax({
-        url: $(this).attr('action'),
-        data: $(this).serialize(),
-        type: $(this).attr("method"),
-        success: function(res) {
-          if (res == 0) {
-            location.reload(true);
-          } else {
-            alert(res);
-          }
-        },
-      });
-    });
-
-    var click = 0;
-    $("span").on('dblclick', function() {
-      click = click + 1;
-      if (click != 1) {
-        return;
-      }
-
-      var id_value = $(this).attr('data-id_value');
-      var value = $(this).attr('data-value');
-      var mode = $(this).attr('data-mode');
-      var value_before = value;
-      var span = $(this);
-
-      var valHtml = $(this).html();
-
-      switch (mode) {
-        case '1':
-        case '2':
-        case '6':
-        case '7':
-        case '10':
-          span.html("<input type='text' id='value_' value='" + value + "'>");
-          break;
-        default:
-      }
-
-      $("#value_").focus();
-      $("#value_").focusout(function() {
-        var value_after = $(this).val();
-        if (value_after === value_before) {
-          span.html(value);
-          click = 0;
-        } else {
-          $.ajax({
-            url: '<?= URL::BASE_URL ?>Data_List/updateCell/user',
-            data: {
-              'id': id_value,
-              'value': value_after,
-              'mode': mode
-            },
-            type: 'POST',
-            dataType: 'html',
-            success: function(response) {
-              if (response == 0) {
-                location.reload(true);
-              } else {
-                alert(response);
-              }
-            },
-          });
-        }
-      });
-    });
-
-    $(".enable").on("click", function(e) {
-      e.preventDefault();
-      var id_value = $(this).attr('data-id_value');
-      var value = $(this).attr('data-value');
-      $.ajax({
-        url: "<?= URL::BASE_URL ?>Data_List/enable/" + value,
-        data: {
-          'id': id_value,
-        },
-        type: 'POST',
-        success: function(response) {
-          $('tr.tr' + id_value).remove();
+  $("form").on("submit", function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: $(this).attr('action'),
+      data: $(this).serialize(),
+      type: $(this).attr("method"),
+      success: function(res) {
+        if (res == 0) {
           location.reload(true);
-        },
-      });
+        } else {
+          alert(res);
+        }
+      },
+    });
+  });
+
+  var click = 0;
+  $("span").on('dblclick', function() {
+    click = click + 1;
+    if (click != 1) {
+      return;
+    }
+
+    var id_value = $(this).attr('data-id_value');
+    var value = $(this).attr('data-value');
+    var mode = $(this).attr('data-mode');
+    var value_before = value;
+    var span = $(this);
+
+    var valHtml = $(this).html();
+
+    switch (mode) {
+      case '1':
+      case '2':
+      case '6':
+      case '7':
+      case '10':
+        span.html("<input type='text' id='value_' value='" + value + "'>");
+        break;
+      default:
+    }
+
+    $("#value_").focus();
+    $("#value_").focusout(function() {
+      var value_after = $(this).val();
+      if (value_after === value_before) {
+        span.html(value);
+        click = 0;
+      } else {
+        $.ajax({
+          url: '<?= URL::BASE_URL ?>Data_List/updateCell/user',
+          data: {
+            'id': id_value,
+            'value': value_after,
+            'mode': mode
+          },
+          type: 'POST',
+          dataType: 'html',
+          success: function(response) {
+            if (response == 0) {
+              location.reload(true);
+            } else {
+              alert(response);
+            }
+          },
+        });
+      }
     });
   });
 </script>
