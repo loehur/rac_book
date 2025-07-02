@@ -23,9 +23,9 @@ class Search extends Controller
    public function cek($se = "")
    {
       $viewData = __CLASS__ . '/data';
-
       $data = [];
-      $data = $this->db(0)->get_where_row("rac_data", "hp LIKE '%" . $se . "%' OR nama LIKE '%" . $se . "%' LIMIT 1");
+      $se = trim($se);
+      $data = $this->db(0)->get_where_row("rac_data", "UPPER(hp) LIKE UPPER('%" . $se . "%') OR nama LIKE '%" . $se . "%' LIMIT 1");
       $this->view($viewData, $data);
    }
 }

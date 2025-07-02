@@ -104,7 +104,6 @@
   </div>
 </div>
 
-
 <script>
   $("form").on("submit", function(e) {
     e.preventDefault();
