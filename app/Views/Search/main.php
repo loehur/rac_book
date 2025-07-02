@@ -19,7 +19,9 @@
     }
 
     $("div#load").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
-      $("div#load").load('<?= URL::BASE_URL ?>Search/cek/' + data);
+      $("div#load").load('<?= URL::BASE_URL ?>Search/cek', {
+        "data": data
+      });
     });
   }
 
