@@ -24,9 +24,13 @@ class Search extends Controller
    {
       $viewData = __CLASS__ . '/data';
       $data = [];
-      $se = $_POST['data'];
-      $se = trim($se);
-      $data = $this->db(0)->get_where_row("rac_data", "UPPER(hp) LIKE UPPER('%" . $se . "%') OR nama LIKE '%" . $se . "%' LIMIT 1");
+
+      $no = $_POST['no'];
+      $no = trim($no);
+      $na = $_POST['na'];
+      $na = trim($na);
+
+      $data = $this->db(0)->get_where_row("rac_data", "UPPER(hp) LIKE UPPER('%" . $no . "%') AND nama LIKE '%" . $na . "%' LIMIT 1");
       $this->view($viewData, $data);
    }
 }
