@@ -17,12 +17,9 @@
 <script>
   function cek() {
     let no = $("input[name=no]").val();
-    if (no == '') {
-      return;
-    }
-
     let na = $("input[name=na]").val();
-    if (na == '') {
+
+    if (no == '' && na == '') {
       return;
     }
 
