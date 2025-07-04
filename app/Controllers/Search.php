@@ -24,18 +24,20 @@ class Search extends Controller
    {
       $viewData = __CLASS__ . '/data';
       $data = [];
+      $limit = 50;
+      $minlengt = 3;
 
       $no = $_POST['no'];
       $no = strtoupper(trim($no));
       $na = $_POST['na'];
       $na = strtoupper(trim($na));
 
-      if (strlen($no) > 0 && strlen($na) > 0) {
-         $data = $this->db(0)->get_where_row("rac_data", "UPPER(hp) LIKE UPPER('%" . $no . "%') AND UPPER(nama) LIKE '%" . $na . "%' LIMIT 1");
-      } elseif (strlen($no) > 0 && strlen($na) == 0) {
-         $data = $this->db(0)->get_where_row("rac_data", "UPPER(hp) LIKE UPPER('%" . $no . "%') LIMIT 1");
-      } else {
-         $data = $this->db(0)->get_where_row("rac_data", "UPPER(nama) LIKE UPPER('%" . $na . "%') LIMIT 1");
+      if (strlen($no) >= $minlengt && strlen($na) >= $minlengt) {
+         $data = $this->db(0)->get_where("rac_data", "UPPER(hp) LIKE UPPER('%" . $no . "%') AND UPPER(nama) LIKE '%" . $na . "%' LIMIT " . $limit);
+      } elseif (strlen($no) >= $minlengt && strlen($na) < $minlengt) {
+         $data = $this->db(0)->get_where("rac_data", "UPPER(hp) LIKE UPPER('%" . $no . "%') LIMIT " . $limit);
+      } elseif (strlen($no) < $minlengt && strlen($na) >= $minlengt) {
+         $data = $this->db(0)->get_where("rac_data", "UPPER(nama) LIKE UPPER('%" . $na . "%') LIMIT " . $limit);
       }
       $this->view($viewData, $data);
    }
