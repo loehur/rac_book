@@ -264,11 +264,15 @@ class DB extends DBC
         $query = "SELECT COUNT(*) FROM $table WHERE $where";
         $result = $this->mysqli->query($query);
 
-        $reply = $result->fetch_array();
-        if ($reply) {
-            return $reply[0];
-        } else {
-            return array('query' => $query, 'info' => $this->mysqli->error);
+        try {
+            $reply = $result->fetch_array();
+            if ($reply) {
+                return $reply[0];
+            } else {
+                return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno, 'db' => $this->db_name);
+            }
+        } catch (\Throwable $th) {
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno, 'db' => $this->db_name);
         }
     }
 
