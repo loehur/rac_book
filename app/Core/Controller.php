@@ -5,6 +5,9 @@ require 'app/Config/URL.php';
 class Controller extends URL
 {
     public $id_user, $book, $nama_user, $id_cabang, $id_privilege, $wCabang;
+    
+    // Cache untuk instance database
+    private $dbInstances = [];
 
     public function operating_data()
     {
@@ -37,9 +40,15 @@ class Controller extends URL
 
     public function db($db = 0)
     {
+        // Gunakan cached instance jika sudah ada
+        if (isset($this->dbInstances[$db])) {
+            return $this->dbInstances[$db];
+        }
+        
         $file = "M_DB";
         require_once "app/Models/" . $file . ".php";
-        return new $file($db);
+        $this->dbInstances[$db] = new $file($db);
+        return $this->dbInstances[$db];
     }
 
     public function session_cek($admin = 0)
