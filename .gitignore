@@ -1,6 +1,6 @@
 img-qrcode/
 .htaccess
-app/Config/
+app/Config/*
 error_log
 files/
 logs
