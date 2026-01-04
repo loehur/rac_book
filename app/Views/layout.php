@@ -11,7 +11,7 @@ if (isset($data)) {
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="<?= $this->ASSETS_URL ?>icon/logo.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234CAF50'/><path d='M70 55c-3 0-6-.5-8.8-1.4-.9-.3-1.9-.1-2.6.5l-5.4 4.1c-7-3.6-12.7-9.3-16.3-16.3l4.1-5.4c.6-.7.8-1.7.5-2.6-.9-2.8-1.4-5.8-1.4-8.8 0-1.7-1.3-3-3-3H28c-1.7 0-3 1.3-3 3 0 24.8 20.2 45 45 45 1.7 0 3-1.3 3-3V58c0-1.7-1.3-3-3-3z' fill='white'/></svg>">
     <title><?= $title ?></title>
     <meta name="viewport" content="width=<?= URL::MIN_WIDTH ?>, user-scalable=no">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/ionicons.min.css">
