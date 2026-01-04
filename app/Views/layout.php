@@ -20,26 +20,15 @@ if (isset($data)) {
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/css/adminlte.min.css">
 
     <style>
-        @font-face {
-            font-family: "fontku";
-            src: url("<?= $this->ASSETS_URL ?>font/Titillium-Regular.otf");
-        }
-
-        html .table {
-            font-family: "fontku", sans-serif;
-        }
-
-        html .content {
-            font-family: "fontku", sans-serif;
-        }
-
+        html .table,
+        html .content,
         html body {
-            font-family: "fontku", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         @media print {
             p div {
-                font-family: "fontku", sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
                 font-size: 14px;
             }
         }
