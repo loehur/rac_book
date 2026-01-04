@@ -86,53 +86,6 @@
                 },
             });
         });
-
-        $("#req_pin").on("click", function(e) {
-            var hp_input = $('#hp').val();
-            $("#spinner").show();
-            e.preventDefault();
-            $.ajax({
-                url: '<?= URL::BASE_URL ?>Login/req_pin',
-                data: {
-                    hp: hp_input
-                },
-                type: 'POST',
-
-                success: function(res) {
-                    try {
-                        data = JSON.parse(res);
-                        if (data.code == 0) {
-                            $("#info").hide();
-                            $("#info").html('<div class="alert alert-danger" role="alert">' + data.msg + '</div>')
-                            $("#info").fadeIn();
-                            $("#spinner").hide();
-                        } else if (data.code == 1) {
-                            $("#info").hide();
-                            $("#info").html('<div class="alert alert-success" role="alert">' + data.msg + '</div>')
-                            $("#info").fadeIn();
-                            $("#spinner").hide();
-                        } else if ((data.code == 11)) {
-                            location.reload(true);
-                        } else if ((data.code == 10)) {
-                            $("#captcha").attr('src', '<?= URL::BASE_URL ?>Login/captcha');
-                            $("#info").hide();
-                            $("#info").html('<div class="alert alert-danger" role="alert">' + data.msg + '</div>')
-                            $("#info").fadeIn();
-                            $("#spinner").hide();
-                        }
-                    } catch (e) {
-                        $("#info").hide();
-                        $("#info").html('<div class="alert alert-danger" role="alert">' + res + '</div>')
-                        $("#info").fadeIn();
-                        $("#spinner").hide();
-                    }
-                },
-            });
-        });
-
-        $(".freq_number").click(function() {
-            $("input#hp").val($(this).html());
-        })
     });
 </script>
 
@@ -151,15 +104,15 @@
                         <div class="input-group mb-3">
                             <input id="hp" type="text" name="username" class="form-control" autocomplete="username" placeholder="Nomor Whatsapp" required>
                             <div class="input-group-append">
-                                <div class="input-group-text" id="req_pin" style="cursor: pointer;">
+                                <div class="input-group-text" style="width:40px">
                                     <div class="w-100 text-center">
-                                        <span>Req OTP</span>
+                                        <span class="fab fa-whatsapp"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="pin" class="form-control" placeholder="OTP" required>
+                            <input type="password" name="pin" class="form-control" placeholder="PIN" required>
                             <div class="input-group-append">
                                 <div class="input-group-text" style="width:40px">
                                     <div class="w-100 text-center">

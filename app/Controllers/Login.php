@@ -66,6 +66,18 @@ class Login extends Controller
          exit();
       }
 
+      // PIN TETAP: 1230
+      $pin_tetap = "1230";
+      if ($pin != $pin_tetap) {
+         $_SESSION['captcha'] = "HJFASD7FD89AS7FSDHFD68FHF7GYG7G47G7G7G674GRGVFTGB7G6R74GHG3Q789631765YGHJ7RGEYBF67";
+         $res = [
+            'code' => 10,
+            'msg' => "PIN SALAH"
+         ];
+         print_r(json_encode($res));
+         exit();
+      }
+
       $cap = $_POST["cap"];
       if (isset($_SESSION['captcha'])) {
          if ($_SESSION['captcha'] <> $cap) {
@@ -85,27 +97,18 @@ class Login extends Controller
          exit();
       }
 
-
       $username = $this->model("Enc")->username($no_user);
-      $otp = $this->model("Enc")->otp($pin);
-      $data_user = $this->data('User')->pin_today($username, $otp);
+      $data_user = $this->data('User')->get_data_user($username);
       if ($data_user) {
          $this->login_parameter($data_user);
          print_r($this->login_ok($username, $no_user));
       } else {
-         $cek = $this->data('User')->pin_admin_today($otp);
-         if ($cek > 0) {
-            $data_user = $this->data('User')->get_data_user($username);
-            $this->login_parameter($data_user);
-            print_r($this->login_ok($username, $no_user));
-         } else {
-            $_SESSION['captcha'] = "HJFASD7FD89AS7FSDHFD68FHF7GYG7G47G7G7G674GRGVFTGB7G6R74GHG3Q789631765YGHJ7RGEYBF67";
-            $res = [
-               'code' => 10,
-               'msg' => "NOMOR WHATSAPP DAN PIN TIDAK COCOK"
-            ];
-            print_r(json_encode($res));
-         }
+         $_SESSION['captcha'] = "HJFASD7FD89AS7FSDHFD68FHF7GYG7G47G7G7G674GRGVFTGB7G6R74GHG3Q789631765YGHJ7RGEYBF67";
+         $res = [
+            'code' => 10,
+            'msg' => "NOMOR WHATSAPP TIDAK TERDAFTAR"
+         ];
+         print_r(json_encode($res));
       }
    }
 
